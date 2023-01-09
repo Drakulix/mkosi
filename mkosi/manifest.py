@@ -210,7 +210,7 @@ class Manifest:
                 else:
                     # Override the URL to avoid HTTPS, so that we don't need to install
                     # ca-certificates to make it work.
-                    if self.config.distribution == Distribution.ubuntu:
+                    if self.config.distribution in (Distribution.ubuntu, Distribution.pop):
                         cmd += ["--option", "Acquire::Changelogs::URI::Override::Origin::Ubuntu=http://changelogs.ubuntu.com/changelogs/pool/@CHANGEPATH@/changelog"]
                     else:
                         cmd += ["--option", "Acquire::Changelogs::URI::Override::Origin::Debian=http://metadata.ftp-master.debian.org/changelogs/@CHANGEPATH@_changelog"]

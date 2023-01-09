@@ -151,6 +151,7 @@ class Distribution(enum.Enum):
     fedora       = "fedora", PackageType.rpm
     debian       = "debian", PackageType.deb
     ubuntu       = "ubuntu", PackageType.deb
+    pop          = "pop", PackageType.deb
     arch         = "arch", PackageType.pkg
     opensuse     = "opensuse", PackageType.rpm
     mageia       = "mageia", PackageType.rpm
@@ -232,7 +233,7 @@ def detect_distribution() -> Tuple[Optional[Distribution], Optional[str]]:
         if d is not None:
             break
 
-    if d in {Distribution.debian, Distribution.ubuntu} and (version_codename or extracted_codename):
+    if d in {Distribution.debian, Distribution.ubuntu, Distribution.pop} and (version_codename or extracted_codename):
         # debootstrap needs release codenames, not version numbers
         version_id = version_codename or extracted_codename
 

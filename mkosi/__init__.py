@@ -2889,7 +2889,7 @@ def load_args(args: argparse.Namespace) -> MkosiConfig:
             args.release = "7"
         elif args.distribution == Distribution.debian:
             args.release = "testing"
-        elif args.distribution == Distribution.ubuntu:
+        elif args.distribution in (Distribution.ubuntu, Distribution.pop):
             args.release = "jammy"
         elif args.distribution == Distribution.opensuse:
             args.release = "tumbleweed"
@@ -2921,7 +2921,7 @@ def load_args(args: argparse.Namespace) -> MkosiConfig:
             args.mirror = None
         elif args.distribution == Distribution.debian:
             args.mirror = "http://deb.debian.org/debian"
-        elif args.distribution == Distribution.ubuntu:
+        elif args.distribution in (Distribution.ubuntu, Distribution.pop):
             if args.architecture == "x86" or args.architecture == "x86_64":
                 args.mirror = "http://archive.ubuntu.com/ubuntu"
             else:
@@ -3397,7 +3397,7 @@ def configure_ssh(state: MkosiState, cached: bool) -> None:
     if state.do_run_build_script or not state.config.ssh:
         return
 
-    if state.config.distribution in (Distribution.debian, Distribution.ubuntu):
+    if state.config.distribution in (Distribution.debian, Distribution.ubuntu, Distribution.pop):
         unit = "ssh.socket"
 
         if state.config.ssh_port != 22:
